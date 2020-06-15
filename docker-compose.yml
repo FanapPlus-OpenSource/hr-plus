@@ -10,7 +10,7 @@ services:
     networks:
       - hrplus-network
     depends_on:
-      - postgres
+      - mongo
 
   panel:
     image: node:12.16.2-alpine
@@ -33,21 +33,18 @@ services:
       - '.:/code'
     networks:
       - hrplus-network
+    depends_on:
+      - app
 
-  postgres:
-    image: postgres
-    restart: always
-    environment:
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_DB: ${POSTGRES_DB}
-      PGDATA: "/var/lib/postgresql/data"
+  mongo:
+    image: mongo:4.2
+    container_name: hr_plus_mongo
+    volumes:
+      - "hr_plus_mongodb:/data/db"
     networks:
       hrplus-network:
         aliases:
-          - postgresdb
-    volumes:
-      - "hrplus_postgres:/var/lib/postgresql/data"
+          - mongodb
 
   redis:
     image: redis:5.0.6-alpine
@@ -60,7 +57,7 @@ services:
           - redis
 
 volumes:
-  hrplus_postgres:
+  hr_plus_mongodb:
   hr_plus_redis:
 
 networks:

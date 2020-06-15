@@ -5,17 +5,8 @@ HR Plus is a web application for HR purposes
 * Inside the root directory copy `.env.example` file and name it `.env`. Then complete the data before running the project.
 * Inside the panel directory copy `.env.example` file and name it `.env`. Then complete the data before running the project.
 
-## Migrations
-To run the migrations run `docker-compose run app python manage.py migrate`.
-
 ## Superuser
-To create superuser run `docker-compose run app python manage.py createsuperuser`.
-
-## Do This the First Time
-Run the following command `docker-compose run app python manage.py collectstatic` once to publish static files.
-
-## Translations
-Run the following command `docker-compose run app python manage.py compilemessages -l fa_IR` for translations.
+To create superuser run `docker-compose run app flask user create-superuser`.
 
 ## Run the Project for Development
 1. Run `docker-compose -f docker-compose.yml -f docker-compose.dev.yml up`.
