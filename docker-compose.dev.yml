@@ -2,8 +2,8 @@ version: "3"
 
 services:
   app:
-    command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn -c "python:config.gunicorn" --reload "app.app:create_app()"
 
-  postgres:
+  mongo:
     ports:
-      - '5660:5432'
+      - 27017:27017
